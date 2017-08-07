@@ -34,6 +34,8 @@ _load_settings() {
 }
 _load_settings "$HOME/.zsh/configs"
 
+[[ -f ~/.zshrc.oh_my_zsh ]] && source ~/.zshrc.oh_my_zsh
+
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
