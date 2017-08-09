@@ -111,8 +111,6 @@ map tn :tabnext<CR>
 map tp :tabprev<CR>
 map tN :tabnew<CR>
 
-" use fzf
-map <Leader>p :Files<CR>
 " Easy buffer switching with fzf
 nnoremap <Space> :Bu<CR>
 
@@ -149,3 +147,28 @@ imap <right> <nop>
 
 " pretty print json
 command! FormatJSON %!python -m json.tool
+
+" ale configuration
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:airline#extensions#ale#enabled = 1
+
+" ripgrep :Find term
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+" use fzf with ripgrep
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
+map <Leader>p :Files<CR> "Files config in .zshrc 
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
