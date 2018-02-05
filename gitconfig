@@ -4,6 +4,8 @@
   default = current
 [color]
   ui = auto
+[date]
+  relative
 [alias]
   aa = add --all
   ap = add --patch
@@ -12,6 +14,7 @@
   co = checkout
   pf = push --force-with-lease
   st = status
+	dtag = !git tag testing-`date \"+%Y.%m.%d_%H.%M\"`
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
