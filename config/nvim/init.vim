@@ -255,5 +255,10 @@ command! Tmigrate :T rake db:migrate
 " Git commands
 command! -nargs=+ Tg :T git <args>
 
+" prevent starting nested terminal in neovim
+if has('nvim') && executable('nvr')
+  let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
+
 " netrw
 let g:netrw_banner = 0
