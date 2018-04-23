@@ -14,7 +14,7 @@
   co = checkout
   pf = push --force-with-lease
   st = status
-	dtag = !git tag testing-`date \"+%Y.%m.%d_%H.%M\"`
+  dtag = !git tag perf-`date \"+%Y.%m.%d_%H.%M\"`
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input

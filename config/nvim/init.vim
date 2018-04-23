@@ -5,12 +5,24 @@ set number
 set laststatus=2
 set modelines=5
 set vb t_vb=
-set ts=2 sts=2 sw=2 expandtab
-set listchars=tab:▸\ ,eol:¬
+" set ts=2 sts=2 sw=2 expandtab
+" set listchars=tab:▸\ ,eol:
 set incsearch
 set nojoinspaces
 set display+=lastline
 set colorcolumn=160 "for deal page
+
+" Softtabs, 2 spaces
+set tabstop=2
+set shiftwidth=2
+set shiftround
+set expandtab
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" Use one space, not two, after punctuation.
+set nojoinspaces
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -23,6 +35,8 @@ nnoremap \ ,
 
 let g:vim_bootstrap_langs = "go,html,javascript,python,ruby"
 " let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+
+let g:python3_host_prog  = '/usr/local/Cellar/python3/3.6.4_4/bin/python3'
 
 packadd minpac
 call minpac#init()
@@ -48,12 +62,14 @@ call minpac#add('tpope/vim-dispatch')
 call minpac#add("radenling/vim-dispatch-neovim") " dispatch
 call minpac#add("mhinz/vim-grepper")
 call minpac#add("tpope/vim-vinegar")
+call minpac#add("dracula/vim")
 
-call minpac#add("lifepillar/vim-solarized8")
-set termguicolors
-set background=dark
-colorscheme solarized8_dark
-let g:solarized_diffmode="high"
+"call minpac#add("lifepillar/vim-solarized8")
+"set termguicolors
+"set background=dark
+"colorscheme solarized8_dark
+"let g:solarized_diffmode="high"
+color dracula
 
 if has('nvim')
   call minpac#add('Shougo/deoplete.nvim') " keyword completion
@@ -148,8 +164,7 @@ map tN :tabnew<CR>
 " Easy buffer switching with fzf
 nnoremap <Space> :Bu<CR>
 
-let g:airline_theme="solarized"
-let g:airline_solarized_bg='light'
+let g:airline_theme="dracula"
 let g:airline_powerline_fonts = 1
 " disable tabline completely
 " let g:airline#extensions#tabline#enabled = 0
