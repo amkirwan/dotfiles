@@ -118,10 +118,9 @@ let g:ale_fixers = {
 let g:ale_completion_enabled = 1
 let g:ale_javascript_prettier_options = '--single-quote  --trailing-comma'
 let g:ale_sign_column_always = 1
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 
-nnoremap <silent> <leader>af :call ale#fix#Fix()<cr>
-
+nmap <leader>af <Plug>(ale_fix)
 " mappings in the style of unimpaired
 nmap <silent> [W <Plug>(ale_first)]
 nmap <silent> [w <Plug>(ale_previous)]
