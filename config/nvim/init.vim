@@ -59,7 +59,7 @@ call minpac#add('bronson/vim-trailing-whitespace')
 call minpac#add('Raimondi/delimitMate') " comlete closing ([{
 call minpac#add('Yggdroot/indentLine') " show line indentation levels
 call minpac#add('tpope/vim-dispatch')
-call minpac#add("radenling/vim-dispatch-neovim") " dispatch
+call minpac#add("radenling/vim-dispatch-neovim") " Vim's compiler plugins async
 call minpac#add("mhinz/vim-grepper")
 call minpac#add("tpope/vim-vinegar")
 call minpac#add("dracula/vim")
@@ -81,7 +81,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 call minpac#add('airblade/vim-gitgutter') " gutters for git
 call minpac#add('janko-m/vim-test') " general test runner
 " run tests with :T
-let test#strategy = "neoterm"
+let test#strategy = "neovim"
 
 " Run the whole test file
 nnoremap <leader>tf :TestFile<CR>
