@@ -15,8 +15,10 @@
   pf = push --force-with-lease
   st = status
   dtag = !git tag perf-`date \"+%Y.%m.%d_%H.%M\"`
+  l5 = log --oneline -5
+  l10 = log --oneline -10
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/akirwan/.gitignore
   autocrlf = input
 	editor = nvim
 [merge]
