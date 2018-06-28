@@ -14,6 +14,7 @@ set colorcolumn=160 "for deal page
 
 " Softtabs, 2 spaces
 set tabstop=2
+set softtabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
@@ -63,6 +64,8 @@ call minpac#add("radenling/vim-dispatch-neovim") " Vim's compiler plugins async
 call minpac#add("mhinz/vim-grepper")
 call minpac#add("tpope/vim-vinegar")
 call minpac#add("dracula/vim")
+call minpac#add("kchmck/vim-coffee-script") " coffeescript support
+" call minpac#add("ludovicchabant/vim-gutentags") " Manages ctag files
 
 "call minpac#add("lifepillar/vim-solarized8")
 "set termguicolors
@@ -73,6 +76,7 @@ color dracula
 
 if has('nvim')
   call minpac#add('Shougo/deoplete.nvim') " keyword completion
+  call minpac#add('carlitux/deoplete-ternjs') 
 endif
 let g:deoplete#enable_at_startup = 1
 " deoplete tab-complete
@@ -268,6 +272,14 @@ command! Tmigrate :T rake db:migrate
 
 " Git commands
 command! -nargs=+ Tg :T git <args>
+
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ '...'
+                \ ]
 
 " prevent starting nested terminal in neovim
 if has('nvim') && executable('nvr')
