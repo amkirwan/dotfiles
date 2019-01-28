@@ -35,7 +35,7 @@ let g:mapleader=","
 nnoremap \ ,
 
 let g:vim_bootstrap_langs = "go,html,javascript,python,ruby"
-" let g:vim_bootstrap_editor = "nvim"				" nvim or vim
+" let g:vim_bootstrap_editor = "nvim" " nvim or vim
 
 let g:python3_host_prog  = '/usr/local/Cellar/python3/3.6.4_4/bin/python3'
 
@@ -57,30 +57,54 @@ call minpac#add('tpope/vim-eunuch') " helpers for unix commands
 call minpac#add('machakann/vim-highlightedyank') "highlight yank text
 call minpac#add('kassio/neoterm') " mappings for T in neoterm
 call minpac#add('bronson/vim-trailing-whitespace')
-call minpac#add('Raimondi/delimitMate') " comlete closing ([{
+" call minpac#add('jiangmiao/auto-pairs') " comlete closing ([{
+call minpac#add('Raimondi/delimitMate')
 call minpac#add('Yggdroot/indentLine') " show line indentation levels
 call minpac#add('tpope/vim-dispatch')
-call minpac#add("radenling/vim-dispatch-neovim") " Vim's compiler plugins async
-call minpac#add("mhinz/vim-grepper")
-call minpac#add("tpope/vim-vinegar")
-call minpac#add("dracula/vim")
-call minpac#add("kchmck/vim-coffee-script") " coffeescript support
+call minpac#add('radenling/vim-dispatch-neovim') " Vim's compiler plugins async
+call minpac#add('mhinz/vim-grepper')
+call minpac#add('tpope/vim-vinegar')
+call minpac#add('justinmk/vim-sneak') " Vim missing motion
+call minpac#add('dracula/vim') " dracula color theme
+call minpac#add('tomasiser/vim-code-dark') " vscode inspired color theme
+call minpac#add('kchmck/vim-coffee-script') " coffeescript support
+call minpac#add('dzeban/vim-log-syntax') "
+" call minpac#add('SirVer/ultisnips')
+" call minpac#add('honza/vim-snippets')
+" call minpac#add('othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] })
+" call minpac#add('ervandew/supertab')
 " call minpac#add("ludovicchabant/vim-gutentags") " Manages ctag files
 
-"call minpac#add("lifepillar/vim-solarized8")
-"set termguicolors
-"set background=dark
-"colorscheme solarized8_dark
+call minpac#add("lifepillar/vim-solarized8")
+set termguicolors
+set background=dark
+colorscheme solarized8_high
 "let g:solarized_diffmode="high"
-color dracula
+" colorscheme dracula
+" colorscheme codedark
 
 if has('nvim')
-  call minpac#add('Shougo/deoplete.nvim') " keyword completion
-  call minpac#add('carlitux/deoplete-ternjs') 
+  call minpac#add('Shougo/deoplete.nvim', { 'for': ['javascript', 'javascript.jsx'] }) " keyword completion
+  call minpac#add('carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] })
 endif
 let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
+
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.js'] = ['file', 'ultisnips', 'ternjs']
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ '...'
+                \ ]
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+" deoplete tab-complete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 call minpac#add('airblade/vim-gitgutter') " gutters for git
 call minpac#add('janko-m/vim-test') " general test runner
@@ -109,6 +133,7 @@ call minpac#add('tpope/vim-bundler')
 call minpac#add('tpope/vim-rake')
 call minpac#add('tpope/vim-rails')
 call minpac#add("sheerun/vim-polyglot")
+call minpac#add("mustache/vim-mustache-handlebars")
 "call minpac#add('neomake/neomake')
 call minpac#add('w0rp/ale') " async lint engine
 
@@ -167,7 +192,8 @@ map tN :tabnew<CR>
 " Easy buffer switching with fzf
 nnoremap <Space> :Bu<CR>
 
-let g:airline_theme="dracula"
+" let g:airline_theme="dracula"
+let g:airline_theme="codedark"
 let g:airline_powerline_fonts = 1
 " disable tabline completely
 " let g:airline#extensions#tabline#enabled = 0
@@ -272,14 +298,6 @@ command! Tmigrate :T rake db:migrate
 
 " Git commands
 command! -nargs=+ Tg :T git <args>
-
-"Add extra filetypes
-let g:deoplete#sources#ternjs#filetypes = [
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ '...'
-                \ ]
 
 " prevent starting nested terminal in neovim
 if has('nvim') && executable('nvr')
