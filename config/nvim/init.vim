@@ -272,6 +272,8 @@ function! SetupCommandAlias(input, output)
 endfunction
 call SetupCommandAlias("grep", "GrepperRg")
 
+autocmd FileType qf nnoremap <buffer><silent> t :execute 'tabedit' matchstr(getline('.'), '^.\{-}\ze\|')<cr>
+
 "Term
 if has('nvim')
   highlight! link TermCursor Cursor
