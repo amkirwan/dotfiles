@@ -84,8 +84,9 @@ colorscheme solarized8_high
 " colorscheme codedark
 
 if has('nvim')
-  call minpac#add('Shougo/deoplete.nvim', { 'for': ['javascript', 'javascript.jsx'] }) " keyword completion
-  call minpac#add('carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] })
+  " call minpac#add('Shougo/deoplete.nvim', { 'for': ['javascript', 'javascript.jsx'] }) " keyword completion
+  call minpac#add('Shougo/deoplete.nvim', { 'do': ':PackUpdate' })
+  call minpac#add('carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' })
 endif
 let g:deoplete#enable_at_startup = 1
 
