@@ -67,34 +67,12 @@ call minpac#add('justinmk/vim-sneak') " Vim missing motion s{char}{char}
 call minpac#add('kchmck/vim-coffee-script') " coffeescript support
 call minpac#add('dzeban/vim-log-syntax') "
 call minpac#add('pangloss/vim-javascript') " vim javascript
-" call minpac#add('SirVer/ultisnips')
-" call minpac#add('honza/vim-snippets')
-" call minpac#add('othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] })
-" call minpac#add('ervandew/supertab')
-" call minpac#add("ludovicchabant/vim-gutentags") " Manages ctag files
 
 set termguicolors
 call minpac#add("morhetz/gruvbox")
 colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark="medium"
-
-" call minpac#add("lifepillar/vim-solarized8")
-" set background=dark
-" colorscheme solarized8_high
-" let g:solarized_diffmode="high"
-" colorscheme dracula
-" colorscheme codedark
-"
-"
-" if has('nvim')
-"   call minpac#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' })
-"   call minpac#add('autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' })
-"   " call minpac#add('carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' })
-" endif
-" let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 let g:SuperTabCrMapping = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -107,25 +85,6 @@ set hidden
 let g:coc_force_debug=1
 call minpac#add('neoclide/coc.nvim', {'do': 'call coc#util#build()'})
 call minpac#add('liuchengxu/vista.vim')
-" let g:LanguageClient_serverCommands = {
-"   \ 'go': ['bingo'],
-"   \ 'javascript': ['javascript-typescript-stdio'],
-"   \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"   \ 'typescript': ['javascript-typescript-stdio'],
-"   \ }
-
-" let g:LanguageClient_rootMarkers = {
-"   \ 'go': ['.git', 'go.mod'],
-"   \ }
-
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
-" set completeopt=longest,menuone,preview
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 call minpac#add('Shougo/echodoc.vim') " echodoc for function signature display
 set cmdheight=2
@@ -163,43 +122,9 @@ call minpac#add('tpope/vim-rake')
 call minpac#add('tpope/vim-rails')
 call minpac#add("sheerun/vim-polyglot")
 call minpac#add("mustache/vim-mustache-handlebars")
-"call minpac#add('neomake/neomake')
-" call minpac#add('w0rp/ale') " async lint engine
 
 " install last
 call minpac#add('ryanoasis/vim-devicons')
-
-" ale configuration
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:airline#extensions#ale#enabled = 1
-
-
-" let g:ale_linters = {
-" \   'javascript': ['prettier', 'eslint'],
-" \ }
-" let g:ale_fixers = {
-" \   'javascript': ['prettier', 'eslint'],
-" \ }
-
-" let g:ale_completion_enabled = 1
-" let g:ale_javascript_prettier_options = '--single-quote  --trailing-comma'
-" let g:ale_sign_column_always = 1
-" let g:ale_fix_on_save = 1
-
-" nmap <leader>af <Plug>(ale_fix)
-" " mappings in the style of unimpaired
-" nmap <silent> [W <Plug>(ale_first)]
-" nmap <silent> [w <Plug>(ale_previous)]
-" nmap <silent> ]w <Plug>(ale_next)]
-" nmap <silent> ]W <Plug>(ale_last)]
-
-" " solarized8 color switch
-" nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
-"     \ ? substitute(g:colors_name, 'dark', 'light', '')
-"     \ : substitute(g:colors_name, 'light', 'dark', '')
-"     \ )<cr>
 
 if has('nvim')
   tnoremap <C-[> <C-\><C-n>
@@ -232,12 +157,8 @@ map tN :tabnew<CR>
 " Easy buffer switching with fzf
 nnoremap <Space> :Bu<CR>
 
-" let g:airline_theme="dracula"
 let g:airline_theme="gruvbox"
 let g:airline_powerline_fonts = 1
-" disable tabline completely
-" let g:airline#extensions#tabline#enabled = 0
-" configure tableine
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
