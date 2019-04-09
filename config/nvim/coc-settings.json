@@ -1,0 +1,6 @@
+{
+  "javascript.preferences.quoteStyle": "single",
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
+  "prettier.eslintIntegration": true
+}
