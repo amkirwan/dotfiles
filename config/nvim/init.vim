@@ -98,6 +98,8 @@ call minpac#add('airblade/vim-gitgutter') " gutters for git
 call minpac#add('janko-m/vim-test') " general test runner
 " run tests with :T
 let test#strategy = "neovim"
+" vertical split instead of the default horizontal
+" let g:neoterm_default_mod= "rightbelow"
 
 " Run the whole test file
 nnoremap <leader>tf :TestFile<CR>
@@ -155,7 +157,7 @@ map tp :tabprev<CR>
 map tN :tabnew<CR>
 
 " Easy buffer switching with fzf
-nnoremap <Space> :Bu<CR>
+nnoremap <leader>b :Bu<CR>
 
 let g:airline_theme="gruvbox"
 let g:airline_powerline_fonts = 1
@@ -247,8 +249,8 @@ nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
 noremap Tn :Tnew<CR>
 
 " map to opening tabs
-noremap <Leader>Tn :tabnew <bar> :term<CR>
-noremap <Leader>Ts :sp<bar> :term<CR>
+noremap <Leader>Tn :tabnew <bar> :Tnew<CR>
+noremap <Leader>Ts :sp<bar> :Tnew<CR>
 
 let g:neoterm_autoinsert = 1
 

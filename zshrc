@@ -101,3 +101,7 @@ bindkey -M vicmd v edit-command-line
 
 # iterm2 integrationi
 source ~/.iterm2_shell_integration.`basename $SHELL`
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/akirwan/.sdkman"
+[[ -s "/Users/akirwan/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/akirwan/.sdkman/bin/sdkman-init.sh"

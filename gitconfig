@@ -29,6 +29,7 @@
   excludesfile = /Users/akirwan/.gitignore
   autocrlf = input
   editor = nvim
+  pager = cat
 [merge]
   ff = only
 [commit]
