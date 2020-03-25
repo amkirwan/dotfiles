@@ -17,7 +17,7 @@
   l = log --pretty=colored
   pf = push --force-with-lease
   st = status
-  ptag = !git tag perf-`date \"+%Y.%m.%d_%H.%M\"`
+  dtag = !git tag deal-`date \"+%Y.%m.%d_%H.%M\"`
   l5 = log --oneline -5
   lH5 = log --pretty="format:%H %s" -5
   l10 = log --oneline -10
@@ -44,3 +44,6 @@
   colorMoved = zebra
 [pretty]
   colored = format:%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset
+[user]
+  name = Anthony Kirwan
+  email = akirwan@groupon.com

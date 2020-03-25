@@ -1,5 +1,6 @@
 {
   "javascript.preferences.quoteStyle": "single",
+  "javascript.preferences.trailingComma": "es5",
   "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
   "prettier.eslintIntegration": true

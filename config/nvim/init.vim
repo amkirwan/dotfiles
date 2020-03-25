@@ -72,7 +72,7 @@ set termguicolors
 call minpac#add("morhetz/gruvbox")
 colorscheme gruvbox
 set background=dark
-let g:gruvbox_contrast_dark="medium"
+let g:gruvbox_contrast_dark="hard"
 
 let g:SuperTabCrMapping = 1
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -82,8 +82,7 @@ let g:UltiSnipsExpandTrigger="<C-j>"
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:coc_force_debug=1
-call minpac#add('neoclide/coc.nvim', {'do': 'call coc#util#build()'})
+call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('liuchengxu/vista.vim')
 
 call minpac#add('Shougo/echodoc.vim') " echodoc for function signature display
