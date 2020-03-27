@@ -1,7 +1,7 @@
 filetype plugin indent on
 syntax on
 
-set number
+set nu rnu
 set laststatus=2
 set modelines=5
 set vb t_vb=
