@@ -67,6 +67,8 @@ call minpac#add('justinmk/vim-sneak') " Vim missing motion s{char}{char}
 call minpac#add('kchmck/vim-coffee-script') " coffeescript support
 call minpac#add('dzeban/vim-log-syntax') "
 call minpac#add('pangloss/vim-javascript') " vim javascript
+call minpac#add('yssl/QFEnter') " quickfix open file in location list where you wish
+call minpac#add('haya14busa/is.vim') " incremental search improvement
 
 set termguicolors
 call minpac#add("morhetz/gruvbox")
