@@ -52,6 +52,8 @@ POWERLEVEL9K_CHANGESET_HASH_LENGTH=7
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
+export BAT_THEME="Gruvbox-N"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 

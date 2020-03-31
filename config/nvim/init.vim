@@ -69,28 +69,19 @@ call minpac#add('dzeban/vim-log-syntax') "
 call minpac#add('pangloss/vim-javascript') " vim javascript
 call minpac#add('yssl/QFEnter') " quickfix open file in location list where you wish
 call minpac#add('haya14busa/is.vim') " incremental search improvement
+call minpac#add('nelstrom/vim-visual-star-search') " visual star search
 
 set termguicolors
-call minpac#add("morhetz/gruvbox")
+call minpac#add("gruvbox-community/gruvbox")
 colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark="hard"
-
-let g:SuperTabCrMapping = 1
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
-let g:UltiSnipsExpandTrigger="<C-j>"
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('liuchengxu/vista.vim')
-
-call minpac#add('Shougo/echodoc.vim') " echodoc for function signature display
-set cmdheight=2
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
 
 " Always draw the signcolumn.
 set signcolumn=yes
@@ -114,17 +105,11 @@ nnoremap <leader>tl :TestLast<CR>
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('vim-airline/vim-airline-themes')
 
+" fzf
 call minpac#add('junegunn/fzf.vim')
 " Load FZF from homebrew installation
 set runtimepath^=/usr/local/opt/fzf
 runtime plugin/fzf.vim
-
-" langs and frameworks
-call minpac#add('tpope/vim-bundler')
-call minpac#add('tpope/vim-rake')
-call minpac#add('tpope/vim-rails')
-call minpac#add("sheerun/vim-polyglot")
-call minpac#add("mustache/vim-mustache-handlebars")
 
 " install last
 call minpac#add('ryanoasis/vim-devicons')
@@ -220,7 +205,7 @@ let g:rg_command = '
   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,mustache}"
   \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
 "Files config in .zshrc
-map <Leader>p :Files<CR>
+nnoremap <Leader>p :Files<CR>
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 function! SetupCommandAlias(input, output)
@@ -230,7 +215,7 @@ function! SetupCommandAlias(input, output)
 endfunction
 call SetupCommandAlias("grep", "GrepperRg")
 
-autocmd FileType qf nnoremap <buffer><silent> t :execute 'tabedit' matchstr(getline('.'), '^.\{-}\ze\|')<cr>
+autocmd FileType qf nnoremap <guffer><silent> t :execute 'tabedit' matchstr(getline('.'), '^.\{-}\ze\|')<cr>
 
 "Term
 if has('nvim')
@@ -255,11 +240,6 @@ noremap <Leader>Ts :sp<bar> :Tnew<CR>
 
 let g:neoterm_autoinsert = 1
 
-" Rails commands
-command! Troutes :T rake routes
-command! -nargs=+ Troute :T rake routes | grep <args>
-command! Tmigrate :T rake db:migrate
-
 " Git commands
 command! -nargs=+ Tg :T git <args>
 
@@ -267,6 +247,14 @@ command! -nargs=+ Tg :T git <args>
 if has('nvim') && executable('nvr')
   let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
+
+" Press * to search for the term under the cursor or a visual selection and
+" then press a key below to replae all instances of it in the current file
+nnoremap <Leader>r :%s///g<Left><Left>
+nnoremap <Leader>rc :%s///gc<Left><Left><Left>
+" visual selection
+xnoremap <Leader>r :s///gc<Left><Left>
+xnoremap <Leader>rc :s///gc<Left><Left><Left>
 
 " config coc
 source $HOME/.config/nvim/coc.vimrc
