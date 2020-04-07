@@ -3,5 +3,7 @@
   "javascript.preferences.trailingComma": "es5",
   "eslint.autoFix": true,
   "eslint.autoFixOnSave": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "explorer.position": "right",
+  "explorer.icon.enableNerdfont": true
 }

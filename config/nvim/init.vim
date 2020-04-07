@@ -39,7 +39,7 @@ nnoremap \ ,
 let g:vim_bootstrap_langs = "go,html,javascript,python,ruby"
 " let g:vim_bootstrap_editor = "nvim" " nvim or vim
 
-let g:python3_host_prog  = '/usr/local/Cellar/python3/3.6.4_4/bin/python3'
+let g:python3_host_prog  = '/usr/local/bin/python3'
 
 packadd minpac
 call minpac#init()
@@ -52,6 +52,7 @@ call minpac#add('k-takata/minpac', {'type':'opt'})
 call minpac#add('tpope/vim-surround') " easy mappings to surround
 call minpac#add('tpope/vim-unimpaired') " alias mappings
 call minpac#add('tpope/vim-fugitive') " Git
+call minpac#add('tpope/vim-rhubarb') " github support for vim-fugitive
 call minpac#add('tpope/vim-commentary') " Easy code comments
 call minpac#add('tpope/vim-projectionist') " granular project config
 call minpac#add('tpope/vim-eunuch') " helpers for unix commands
@@ -70,6 +71,7 @@ call minpac#add('pangloss/vim-javascript') " vim javascript
 call minpac#add('yssl/QFEnter') " quickfix open file in location list where you wish
 call minpac#add('haya14busa/is.vim') " incremental search improvement
 call minpac#add('nelstrom/vim-visual-star-search') " visual star search
+call minpac#add('sheerun/vim-polyglot') " syntax highlighting
 
 set termguicolors
 call minpac#add("gruvbox-community/gruvbox")
@@ -109,7 +111,13 @@ call minpac#add('vim-airline/vim-airline-themes')
 call minpac#add('junegunn/fzf.vim')
 " Load FZF from homebrew installation
 set runtimepath^=/usr/local/opt/fzf
+
 runtime plugin/fzf.vim
+"Files config in .zshrc
+"nnoremap <Leader>p :Files<CR>
+"nnoremap <Leader>l :Lines<CR>
+" Easy buffer switching with fzf
+"nnoremap <leader>b :Bu<CR>
 
 " install last
 call minpac#add('ryanoasis/vim-devicons')
@@ -142,9 +150,6 @@ map tn :tabnext<CR>
 map tp :tabprev<CR>
 map tN :tabnew<CR>
 
-" Easy buffer switching with fzf
-nnoremap <leader>b :Bu<CR>
-
 let g:airline_theme="gruvbox"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -156,11 +161,6 @@ let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#close_symbol = '×'
 let g:airline#extensions#tabline#show_close_button = 0
-
-nnoremap  <leader>B :<c-u>exe "colors" (g:colors_name =~# "dark"
-  \ ? substitute(g:colors_name, 'dark', 'light', '')
-  \ : substitute(g:colors_name, 'light', 'dark', '')
-  \ )<cr>
 
 nnoremap <Left> :vertical resize -5<CR>
 nnoremap <Right> :vertical resize +5<CR>
@@ -179,8 +179,8 @@ let g:grepper = {}
 let g:grepper.highlight = 1
 let g:grepper.tools = ['rg', 'git', 'grep']
 let &statusline .= ' %{grepper#statusline()}'
-nnoremap <Leader>gg :Grepper -tool git
-nnoremap <Leader>gr :Grepper -tool rg
+nnoremap <Leader>gg :Grepper -tool git<CR>
+nnoremap <Leader>rg :Grepper -tool rg<CR>
 
 " Search for the current word
 nnoremap <Leader>* :Grepper -tool rg -cword -noprompt<CR>
@@ -200,13 +200,11 @@ xmap gs <plug>(GrepperOperator)
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
 " use fzf with ripgrep
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --vimgrep --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,mustache}"
-  \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
-"Files config in .zshrc
-nnoremap <Leader>p :Files<CR>
-command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+" let g:rg_command = '
+"   \ rg --column --line-number --no-heading --vimgrep --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+"   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,mustache}"
+"   \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
+" command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 function! SetupCommandAlias(input, output)
   exec 'cabbrev <expr> '.a:input
@@ -256,7 +254,14 @@ nnoremap <Leader>rc :%s///gc<Left><Left><Left>
 xnoremap <Leader>r :s///gc<Left><Left>
 xnoremap <Leader>rc :s///gc<Left><Left><Left>
 
+" Type a replacement term and press . to repeat the replacement again. Useful
+" for replacing a few instances of the term (comparable to multiple cursors).
+nnoremap <silent> s* :let @/='\<'.expand('<cword>').'\>'<CR>cgn
+xnoremap <silent> s* "sy:let @/=@s<CR>cgn
+
+let g:github_enterprise_urls = ['https://github.groupondev.com/']
+
 " config coc
 source $HOME/.config/nvim/coc.vimrc
 source $HOME/.config/nvim/vista.vimrc
-
+source $HOME/.config/nvim/fzf-config.vimrc
