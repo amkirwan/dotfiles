@@ -1,51 +1,12 @@
-let s:fzf_no_graph = '--color="always" --pretty=format:"%C(green)%<(14)%cn %C(auto)%h%d %s %C(cyan)%cr"'
-let s:fzf_with_graph = '--graph --color="always" --pretty=format:"%C(green)%cn %C(auto)%h%d %s %C(cyan)%cr"'
+" let s:fzf_no_graph = '--color="always" --pretty=format:"%C(green)%<(14)%cn %C(auto)%h%d %s %C(cyan)%cr"'
+" let s:fzf_with_graph = '--graph --color="always" --pretty=format:"%C(green)%cn %C(auto)%h%d %s %C(cyan)%cr"'
+"
+
 
 let g:fzf_preview_window = 'right:50%'
 
-let s:base_rip = 'rg --column --line-number --no-heading --hidden --follow --color "always"'
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-function! s:CallRipGrep(smartcase, where, ...) abort
-  let args = copy(a:000)
-  let flags = []
-  let terms = []
-
-  let cmd = s:base_rip
-
-  if a:smartcase
-    let cmd .= ' --smart-case '
-  endif
-
-  for arg in args
-    if match(arg, '^-') == 0
-      call add(flags, arg)
-    else
-      call add(terms, arg)
-    endif
-  endfor
-
-  let where = a:where
-
-  if where == ''
-    let where = remove(terms, -1)
-  endif
-
-  let term = join(terms, ' ')
-  let term = '"' . term . '"'
-
-  if len(flags)
-    let cmd .= join(flags, ' ') . ' '
-  endif
-
-  let cmd .= term  . ' ' . where
-  call fzf#vim#grep(cmd, 1, { 'options': '--expect='. join(keys(s:actions), ',') })
-endfunction
-
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
 
 let s:actions = {
   \   'ctrl-t': 'tabe',
@@ -99,7 +60,16 @@ function! s:CommitFormat(buffer)
   endif
 endfunction
 
-command! -bang -nargs=* Rip :call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, <bang>0)
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Rip
+  \ :call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>,
+  \ 1,
+  \ fzf#vim#with_preview(),
+  \ <bang>0)
 command! -bang -nargs=0 Scripts :call s:FzfScriptnames(<bang>0)
 command! -bang -nargs=0 SoScript :call s:FzfScriptnames(<bang>0, 'so')
 command! -bang -nargs=0 RunScript :call s:FzfScriptnames(<bang>0, 'Runtime!')
@@ -171,40 +141,40 @@ function! s:strip(str)
   return substitute(a:str, '^\s*\|\s*$', '', 'g')
 endfunction
 
-function! s:get_color(attr, ...)
-  let gui = has('termguicolors') && &termguicolors
-  let fam = gui ? 'gui' : 'cterm'
-  let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
-  for group in a:000
-    let code = synIDattr(synIDtrans(hlID(group)), a:attr, fam)
-    if code =~? pat
-      return code
-    endif
-  endfor
-  return ''
-endfunction
+" function! s:get_color(attr, ...)
+"   let gui = has('termguicolors') && &termguicolors
+"   let fam = gui ? 'gui' : 'cterm'
+"   let pat = gui ? '^#[a-f0-9]\+' : '^[0-9]\+$'
+"   for group in a:000
+"     let code = synIDattr(synIDtrans(hlID(group)), a:attr, fam)
+"     if code =~? pat
+"       return code
+"     endif
+"   endfor
+"   return ''
+" endfunction
 
-let s:ansi = {'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36}
+" let s:ansi = {'black': 30, 'red': 31, 'green': 32, 'yellow': 33, 'blue': 34, 'magenta': 35, 'cyan': 36}
 
-function! s:csi(color, fg)
-  let prefix = a:fg ? '38;' : '48;'
-  if a:color[0] == '#'
-    return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
-  endif
-  return prefix.'5;'.a:color
-endfunction
+" function! s:csi(color, fg)
+"   let prefix = a:fg ? '38;' : '48;'
+"   if a:color[0] == '#'
+"     return prefix.'2;'.join(map([a:color[1:2], a:color[3:4], a:color[5:6]], 'str2nr(v:val, 16)'), ';')
+"   endif
+"   return prefix.'5;'.a:color
+" endfunction
 
-function! s:ansi(str, group, default, ...)
-  let fg = s:get_color('fg', a:group)
-  let bg = s:get_color('bg', a:group)
-  let color = s:csi(empty(fg) ? s:ansi[a:default] : fg, 1) .
-        \ (empty(bg) ? '' : s:csi(bg, 0))
-  let val = printf("\x1b[%s%sm%s\x1b[m", color, a:0 ? ';1' : '', a:str)
-  return val
-endfunction
+" function! s:ansi(str, group, default, ...)
+"   let fg = s:get_color('fg', a:group)
+"   let bg = s:get_color('bg', a:group)
+"   let color = s:csi(empty(fg) ? s:ansi[a:default] : fg, 1) .
+"         \ (empty(bg) ? '' : s:csi(bg, 0))
+"   let val = printf("\x1b[%s%sm%s\x1b[m", color, a:0 ? ';1' : '', a:str)
+"   return val
+" endfunction
 
-for s:color_name in keys(s:ansi)
-  execute "function! s:".s:color_name."(str, ...)\n"
-        \ "  return s:ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
-        \ "endfunction"
-endfor
+" for s:color_name in keys(s:ansi)
+"   execute "function! s:".s:color_name."(str, ...)\n"
+"         \ "  return s:ansi(a:str, get(a:, 1, ''), '".s:color_name."')\n"
+"         \ "endfunction"
+" endfor
