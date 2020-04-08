@@ -183,6 +183,12 @@
   # Make the icon bold.
   typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='${P9K_CONTENT}'
 
+  ################################[ path folder icons ]################################
+  typeset -g POWERLEVEL9K_HOME_ICON=''
+  typeset -g POWERLEVEL9K_HOME_SUB_ICON=''
+  typeset -g POWERLEVEL9K_FOLDER_ICON=''
+  typeset -g POWERLEVEL9K_ETC_ICON=''
+
   ################################[ prompt_char: prompt symbol ]################################
   # Green prompt symbol if the last command succeeded.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
