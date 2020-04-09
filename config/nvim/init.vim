@@ -265,3 +265,4 @@ let g:github_enterprise_urls = ['https://github.groupondev.com/']
 source $HOME/.config/nvim/coc.vimrc
 source $HOME/.config/nvim/vista.vimrc
 source $HOME/.config/nvim/fzf-config.vimrc
+source $HOME/.config/nvim/qfenter.vimrc
