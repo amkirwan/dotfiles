@@ -72,6 +72,7 @@ call minpac#add('yssl/QFEnter') " quickfix open file in location list where you 
 call minpac#add('haya14busa/is.vim') " incremental search improvement
 call minpac#add('nelstrom/vim-visual-star-search') " visual star search
 call minpac#add('sheerun/vim-polyglot') " syntax highlighting
+call minpac#add('mhinz/vim-startify') " fancy start screen
 
 set termguicolors
 call minpac#add("gruvbox-community/gruvbox")
