@@ -1,5 +1,10 @@
+[user]
+  name = Anthony Kirwan
+  email =
 [init]
   templatedir = ~/.git_template
+[branch]
+  autosetuprebase = always
 [push]
   default = current
 [color]
@@ -10,8 +15,12 @@
   ff = only
 [commit]
   template = ~/.gitmessage
+[core]
+  editor = nvim
 [fetch]
   prune = true
+[apply]
+  whitespace = fix
 [rebase]
   autosquash = true
 [include]
@@ -21,6 +30,3 @@
   colorMoved = zebra
 [pretty]
   colored = format:%Cred%h%Creset %s %Cgreen(%cr) %C(bold gray)%an%Creset
-[user]
-  name = Anthony Kirwan
-  email = akirwan@groupon.com
