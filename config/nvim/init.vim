@@ -13,11 +13,25 @@ set display+=lastline
 set colorcolumn=160 "for deal page
 
 " Softtabs, 2 spaces
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
+" try setting with vim-sleuth
+" set tabstop=2
+" set softtabstop=2
+" set shiftwidth=2
+" set shiftround
+" set expandtab
+"
+" Indenting defaults (does not override vim-sleuth's indenting detection)
+" Defaults to 4 spaces for most filetypes
+if get(g:, '_has_set_default_indent_settings', 0) == 0
+  " Set the indenting level to 2 spaces for the following file types.
+  autocmd FileType typescript,javascript,jsx,tsx,json,css,html,ruby,elixir,kotlin,vim,plantuml
+        \ setlocal expandtab tabstop=2 shiftwidth=2
+  set expandtab
+  set tabstop=2
+  set shiftwidth=2
+  set softtabstop=2
+  let g:_has_set_default_indent_settings = 1
+endif
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -73,6 +87,9 @@ call minpac#add('haya14busa/is.vim') " incremental search improvement
 call minpac#add('nelstrom/vim-visual-star-search') " visual star search
 call minpac#add('sheerun/vim-polyglot') " syntax highlighting
 call minpac#add('mhinz/vim-startify') " fancy start screen
+call minpac#add('tpope/vim-obsession') " session management
+call minpac#add('tpope/vim-sensible') " sensible defaults
+call minpac#add('tpope/vim-sleuth') " heuristical based indentation
 
 set termguicolors
 call minpac#add("gruvbox-community/gruvbox")
@@ -261,6 +278,17 @@ nnoremap <silent> s* :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> s* "sy:let @/=@s<CR>cgn
 
 let g:github_enterprise_urls = ['https://github.groupondev.com/']
+
+
+" mhinz/vim-startify to not change dir
+let g:startify_change_to_dir = 0
+
+" vim-obsession session management and vim-startify integration
+command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
+  \ call startify#session_save(<bang>0, <f-args>) |
+  \ if !empty(v:this_session) |
+  \   execute "Obsession " . v:this_session |
+  \ endif
 
 " config coc
 source $HOME/.config/nvim/coc.vimrc
