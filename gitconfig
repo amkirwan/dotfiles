@@ -1,6 +1,3 @@
-[user]
-  name = Anthony Kirwan
-  email =
 [init]
   templatedir = ~/.git_template
 [branch]
