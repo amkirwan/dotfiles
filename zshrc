@@ -55,7 +55,7 @@ bindkey -M vicmd v edit-command-line
 
 export PATH=$HOME/.rbenv/bin:./node_modules/.bin:${HOME}/:/usr/local/bin:$PATH
 
-alias python=/usr/local/bin/python3
+# alias python=/usr/local/bin/python3
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

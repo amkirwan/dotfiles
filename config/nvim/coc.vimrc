@@ -40,7 +40,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Close preview window when completion is donepumvisible()
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -51,6 +52,7 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nmap <leader>gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -119,11 +121,18 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 nnoremap <leader>- :CocCommand explorer<CR>
 
+" use coc-go for gd not go-vim
+let g:go_def_mapping_enabled = 0
+" disable auto complete for vim-go use coc-vim
+let g:go_code_completion_enabled = 0
+
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
+  \ 'coc-flow',
   \ 'coc-go',
   \ 'coc-python',
   \ 'coc-css',
+  \ 'coc-cssmodules',
   \ 'coc-html',
   \ 'coc-json',
   \ 'coc-pairs',

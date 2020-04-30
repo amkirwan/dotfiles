@@ -103,6 +103,9 @@ plugins=(
   zsh-syntax-highlighting
 )
 
+# bindkey for zsh-autosuggestions
+bindkey '^ ' autosuggest-accept
+
 source $ZSH/oh-my-zsh.sh
 
 export KEYTIMEOUT=1

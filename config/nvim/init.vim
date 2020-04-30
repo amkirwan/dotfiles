@@ -90,6 +90,7 @@ call minpac#add('mhinz/vim-startify') " fancy start screen
 call minpac#add('tpope/vim-obsession') " session management
 call minpac#add('tpope/vim-sensible') " sensible defaults
 call minpac#add('tpope/vim-sleuth') " heuristical based indentation
+call minpac#add('fatih/vim-go') " go support
 
 set termguicolors
 call minpac#add("gruvbox-community/gruvbox")
@@ -289,6 +290,8 @@ command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
   \ if !empty(v:this_session) |
   \   execute "Obsession " . v:this_session |
   \ endif
+
+syntax sync fromstart
 
 " config coc
 source $HOME/.config/nvim/coc.vimrc
