@@ -129,7 +129,6 @@ let g:go_code_completion_enabled = 0
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-flow',
-  \ 'coc-go',
   \ 'coc-python',
   \ 'coc-css',
   \ 'coc-cssmodules',
@@ -142,6 +141,7 @@ let g:coc_global_extensions = [
   \ 'coc-highlight',
   \ 'coc-yaml',
   \ 'coc-explorer',
+  \ 'coc-go'
   \ ]
 " Coc cursors session
 " nmap <silent> <C-c> <Plug>(coc-cursors-position)

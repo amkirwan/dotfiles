@@ -90,7 +90,13 @@ call minpac#add('mhinz/vim-startify') " fancy start screen
 call minpac#add('tpope/vim-obsession') " session management
 call minpac#add('tpope/vim-sensible') " sensible defaults
 call minpac#add('tpope/vim-sleuth') " heuristical based indentation
-call minpac#add('fatih/vim-go') " go support
+call minpac#add('godlygeek/tabular')
+call minpac#add('plasticboy/vim-markdown') " markdown
+call minpac#add('airblade/vim-gitgutter') " gutters for git
+
+" git gutter enhanced folds
+set foldtext=gitgutter#fold#foldtext()
+nnoremap <leader>gf :GitGutterFold<CR>
 
 set termguicolors
 call minpac#add("gruvbox-community/gruvbox")
@@ -107,7 +113,6 @@ call minpac#add('liuchengxu/vista.vim')
 " Always draw the signcolumn.
 set signcolumn=yes
 
-call minpac#add('airblade/vim-gitgutter') " gutters for git
 call minpac#add('janko-m/vim-test') " general test runner
 " run tests with :T
 let test#strategy = "neovim"
@@ -169,6 +174,9 @@ map tn :tabnext<CR>
 map tp :tabprev<CR>
 map tN :tabnew<CR>
 
+noremap tH :-tabmove<CR>
+noremap tL :+tabmove<CR>
+
 let g:airline_theme="gruvbox"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -219,11 +227,11 @@ xmap gs <plug>(GrepperOperator)
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
 " use fzf with ripgrep
-" let g:rg_command = '
-"   \ rg --column --line-number --no-heading --vimgrep --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-"   \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,mustache}"
-"   \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
-" command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --vimgrep --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,mustache}"
+  \ -g "!{.git,node_modules,vendor,public,tmp}/*" '
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 function! SetupCommandAlias(input, output)
   exec 'cabbrev <expr> '.a:input
@@ -280,7 +288,6 @@ xnoremap <silent> s* "sy:let @/=@s<CR>cgn
 
 let g:github_enterprise_urls = ['https://github.groupondev.com/']
 
-
 " mhinz/vim-startify to not change dir
 let g:startify_change_to_dir = 0
 
@@ -292,6 +299,30 @@ command! -nargs=? -bar -bang -complete=customlist,startify#session_list SSave
   \ endif
 
 syntax sync fromstart
+
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+
+hi InactiveWindow guibg=#414141
+" Call method on window enter
+augroup WindowManagement
+  autocmd!
+  autocmd WinEnter * call Handle_Win_Enter()
+augroup END
+
+" Change highlight group of active/inactive windows
+function! Handle_Win_Enter()
+  setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+endfunction
+
+" Disabling vim-go mapping `gd` for go to definition
+" let g:go_def_mapping_enabled = 0
+let g:go_fmt_command = "goimports"
+let g:go_fmt_options = {
+    \ 'goimports': '-local code.uber.internal,thriftrw/code.uber.internal,go.uber.org',
+    \ }
 
 " config coc
 source $HOME/.config/nvim/coc.vimrc

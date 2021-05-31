@@ -66,7 +66,7 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* Rip
-  \ :call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>,
+  \ :call fzf#vim#grep('rg -g "!dist/**/*" --column --line-number --no-heading --color=always --smart-case '.<q-args>,
   \ 1,
   \ fzf#vim#with_preview(),
   \ <bang>0)
